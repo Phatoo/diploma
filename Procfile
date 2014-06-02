@@ -1,2 +1,1 @@
-# heroku-sails
-### a Sails application
+web: node app.js
