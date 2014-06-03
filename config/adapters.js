@@ -25,7 +25,7 @@ module.exports.adapters = {
   disk: {
     module: 'sails-disk'
   },
-mongodb://<user>:<password>@kahana.mongohq.com:10011/diplom
+
   mongo: {
     module: 'sails-mongo',
     host: 'kahana.mongohq.com',
