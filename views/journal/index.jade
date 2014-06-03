@@ -1,0 +1,32 @@
+extends ../layouts/layout_main
+block content
+  
+  .container.container-fluid
+
+    .row
+      div
+        | Список групп с журналом посещений
+
+
+      - sails.config.constants.groups.forEach(function(group) {
+        a.next(href='/journal/' + group) •#{group}
+        br
+      - })
+
+      //
+        br
+        a.next(href='/schedule/a-62') •A-62
+        br
+        a.next(href='/schedule/a-62') •A-63
+        br
+        a.next(href='/schedule/a-62') •A-64
+        br
+        a.next(href='/schedule/a-62') •A-65
+ 
+
+
+
+
+
+
+

@@ -1,0 +1,22 @@
+extends ../layouts/layout_main
+block content
+  
+  .container.container-fluid
+
+    .row
+      div
+        | Список групп с расписанием
+
+      - sails.config.constants.groups.forEach(function(group) {
+        a.next(href='/schedule/' + group) •#{group}
+        br
+      - })
+
+ 
+
+
+
+
+
+
+

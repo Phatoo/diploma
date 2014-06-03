@@ -1,0 +1,16 @@
+extends ../layouts/layout_main
+block content
+  
+  .container.container-fluid
+    .row
+      h1
+        | Новости
+      .row
+        - news.forEach(function(anew) {
+          .row
+            h3
+              | #{anew.handler}
+          .row
+            h4
+              | #{anew.body}
+        - })

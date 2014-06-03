@@ -1,0 +1,42 @@
+extends ../layouts/layout_main
+block content
+  .container.container-fluid
+
+    form.form-horizontal#credentialsForm(role='form' action='/admin/create/news' method='POST')
+      .row
+        .col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-12.col-xs-12
+          .checkout.margin-bottom-10
+            .row.header.margin-bottom-10
+              .col-lg-12.col-md-12.col-sm-12.col-xs-12(style='background-color:#F5F5F5;')
+                h4 Добавить новость
+            .row.margin-bottom-10.margin-sides-10
+              .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                .form-group
+                  label.col-sm-3.control-label(for='handler') Заголовок
+                  .col-sm-8
+                    input#first_name.form-control(type='text', placeholder='Заголовок', name='handler' value='' required)
+                .form-group
+                  label.col-sm-3.control-label(for='last_name') Текст
+                  .col-sm-8
+                    input#last_name.form-control(type='text', placeholder='Текст новости', name='body' value='' required)
+                .row
+                  h1 #{message}
+                  button.btn.btn-primary(type='submit') Добавить
+
+    div
+        | Список студентов
+      table.table.table-stripped
+        tr
+          td Заголовок
+          td Текст
+          td Удалить
+
+        - news.forEach(function(anew) {
+          tr
+            td
+              | #{anew.handler}
+            td
+              | #{anew.body}
+            td
+              a(type='button' href='/admin/delete/news/' + '#{anew.id}').btn.btn-danger.btn-xs Х
+        - })

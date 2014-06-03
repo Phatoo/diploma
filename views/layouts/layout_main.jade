@@ -1,0 +1,45 @@
+html(lang='en')
+head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    link(rel='shortcut icon', href='/assets/ico/favicon.ico')
+    - if(title)
+      - if (title == 'Sails')
+        title Bahama Joes
+      - else
+        title #{title}
+    - else
+      title Bahama Joes
+    link(href='http://fonts.googleapis.com/css?family=Montserrat:400,700', rel='stylesheet', type='text/css')
+    link(href='/css/style.css', rel='stylesheet')
+    //if lt IE 9
+      script(src='../../assets/js/ie8-responsive-file-warning.js')
+    //
+       HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries 
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+    //- old
+    //- script(src='https://code.jquery.com/jquery-1.10.2.min.js')
+    //- new
+    script(src='http://code.jquery.com/jquery-2.1.0.min.js')
+    script(src='/js/jquery-ui.js')
+    script(src='/js/url.min.js')
+    script(src='/js/bootstrap.min.js')
+    script(src='/js/jquery.validate.min.js')
+    script(src='/js/unslider.min.js')
+    script(src='/js/jquery.serializeObject.js')
+    script(src='/js/jquery')
+    script(src='/js/alerts.js')
+    script(src='/js/spin.min.js')
+    script(src='/js/underscore-min.js')
+    script(src='/js/views/cart.js')
+    script(src='/js/views/checkout.js')
+    script(src='/js/views/search-bar.js')
+  body
+    include ../includes/navbar
+    block content
+    

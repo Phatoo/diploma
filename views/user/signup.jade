@@ -1,0 +1,48 @@
+extends ../layouts/layout_main
+block content
+  #mainwrapper.container.container-fluid
+    .row.text-center
+      //
+         FLYOUT NAV 
+      form#signup(action='/signup'  method='POST')
+        fieldset
+          label(for='email') Email
+          input#email(type='email' placeholder='email' name='email')
+          label(for='password') password
+          input#password(type='password' placeholder='password' name='password') 
+          h2 first_name
+          input(type='text' placeholder='first_name' name='first_name')
+          h2 last_name
+          input(type='text' placeholder='last_name' name='last_name')
+          button.btn.btn-primary(type='submit') SignUp
+          
+    //- // SERVER EXPECTS THIS FIELD NAMES IN req.body:
+    //-    var body = {
+    //-     first_name: req.body.first_name
+    //-     ,last_name: req.body.last_name
+    //-     ,email: req.body.email
+    //-     ,password: req.body.password
+    //-     ,additional_comments: req.body.additional_comments
+    //-     ,shipping_addresses: [{
+    //-       company_name: req.body.b_company_name
+    //-       ,first_name: req.body.b_first_name
+    //-       ,last_name: req.body.b_last_name
+    //-       ,phone: req.body.b_phone_number
+    //-       ,first_address: req.body.b_first_address
+    //-       ,second_address: req.body.b_second_address
+    //-       ,city: req.body.b_city
+    //-       ,state: req.body.b_state
+    //-       ,postal_code: req.body.b_postal_code
+    //-     }]
+    //-     ,shipping_addresses: [{
+    //-       company_name: req.body.s_company_name
+    //-       ,first_name: req.body.s_first_name
+    //-       ,last_name: req.body.s_last_name
+    //-       ,phone: req.body.s_phone_number
+    //-       ,first_address: req.body.s_first_address
+    //-       ,second_address: req.body.s_second_address
+    //-       ,city: req.body.s_city
+    //-       ,state: req.body.s_state
+    //-       ,postal_code: req.body.s_postal_code
+    //-     }]
+    //-   }

@@ -10,31 +10,55 @@
  * For more information on policies, check out:
  * http://sailsjs.org/#documentation
  */
+var _ = require ('underscore')
+var ObjectId = require('mongoose').Types.ObjectId
+  //TODO validation error for invalid types
+  // error object example
+  //
+  // #FIELD_NAME = 
+  // #INVALID_DATA = 
+  // #DATA_TYPE = 
+  //   {
+  //   "ValidationError": {
+  //     "{FIELD_NAME}": [
+  //       {
+  //         "data": "{INVALID_DATA}",
+  //         "message": "Validation error: \"{INVALID_DATA}\" is not of type \"{DATA_TYPE}\"",
+  //         "rule": "{DATA_TYPE}"
+  //       }
+  //     ]
+  //   }
+  // }
+global.Serialize = function (obj,rule){
+  
 
-
+  function isEmpty(obj) {
+      if (obj == null) return true;
+      if (obj.length != undefined) return false;
+      for (var key in obj) {
+          if (_.has(obj, key)) return false;
+      }
+      return true;
+  }
+  if(isEmpty(rule)) rule = {}
+  if (isEmpty(obj)) obj = rule
+  for(var field in rule){
+    if(field != '_id'){
+      for(var key in obj){
+        //PUT EMPTY VALUE DEFINED AT RULE AS DEFAULT FOR EACH FIELD
+        if(!_.has(obj, field)) obj[field] = rule[field]
+        if(!_.has(rule, key)) delete obj[key]
+      }
+    }else{
+      obj._id = ObjectId()
+    }
+  }
+  return obj
+}
 module.exports.policies = {
-
   // Default policy for all controllers and actions
   // (`true` allows public access) 
-  '*': true
-
-  /*
-	// Here's an example of adding some policies to a controller
-	RabbitController: {
-
-		// Apply the `false` policy as the default for all of RabbitController's actions
-		// (`false` prevents all access, which ensures that nothing bad happens to our rabbits)
-		'*': false,
-
-		// For the action `nurture`, apply the 'isRabbitMother' policy 
-		// (this overrides `false` above)
-		nurture	: 'isRabbitMother',
-
-		// Apply the `isNiceToAnimals` AND `hasRabbitFood` policies
-		// before letting any users feed our rabbits
-		feed : ['isNiceToAnimals', 'hasRabbitFood']
-	}
-	*/
+  // '*': 'isCart'
 };
 
 
@@ -58,6 +82,7 @@ module.exports.policies = {
  */
 
 /*
+
 module.exports = function isNiceToAnimals (req, res, next) {
 	
 	// `req.session` contains a set of data specific to the user making this request.

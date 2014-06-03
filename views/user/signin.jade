@@ -1,0 +1,17 @@
+extends ../layouts/layout_main
+block content
+  #mainwrapper.container.container-fluid
+    .row.text-center
+      //
+         FLYOUT NAV 
+      form#signin(action='/signin'  method='POST')
+        fieldset
+          label(for='email') Email
+          input#email(type='email' placeholder='email' name='email')
+          label(for='password') password
+          input#password(type='password' placeholder='password' name='password') 
+          //- h2 first_name
+          //- input(type='text' placeholder='first_name' name='first_name')
+          //- h2 last_name
+          //- input(type='text' placeholder='last_name' name='last_name')
+          button.btn.btn-primary(type='submit') SignIn

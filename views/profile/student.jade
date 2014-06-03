@@ -1,0 +1,24 @@
+extends ../layouts/layout_main
+block content
+  .container.container-fluid
+    form.form-horizontal#credentialsForm(role='form' action='/api/v1/user/my_account' method='POST')
+      .row
+        .col-lg-8.col-lg-offset-2.col-md-8.col-md-offset-2.col-sm-12.col-xs-12
+          .checkout.margin-bottom-10
+            .row.header.margin-bottom-10
+              .col-lg-12.col-md-12.col-sm-12.col-xs-12(style='background-color:#F5F5F5;')
+                h4 Профиль студента
+            .row.margin-bottom-10.margin-sides-10
+              .col-lg-12.col-md-12.col-sm-12.col-xs-12
+                .form-group
+                  label.col-sm-3.control-label(for='email') Электронная почта
+                  .col-sm-8
+                    input#email.form-control(type='email', placeholder='Email' name='email', autocomplete='off' value='#{student.email}' required)
+                .form-group
+                  label.col-sm-3.control-label(for='first_name') Имя
+                  .col-sm-8
+                    input#first_name.form-control(type='text', placeholder='First Name', name='first_name' value='#{student.first_name}' required)
+                .form-group
+                  label.col-sm-3.control-label(for='last_name') Фамилия
+                  .col-sm-8
+                    input#last_name.form-control(type='text', placeholder='Last Name', name='last_name' value='#{student.last_name}' required)

@@ -14,8 +14,7 @@ module.exports[404] = function pageNotFound(req, res) {
    * work just like their Express equivalents to handle HTTP requests, they also simulate
    * the same interface for receiving socket messages.
    */
-
-  var viewFilePath = '404';
+  var viewFilePath = 'errors/404';
   var statusCode = 404;
   var result = {
     status: statusCode
@@ -32,7 +31,10 @@ module.exports[404] = function pageNotFound(req, res) {
     if (err) { return res.json(result, result.status); }
 
     // Otherwise, serve the `views/404.*` page
-    res.render(viewFilePath);
+    res.render(viewFilePath, {
+      cart_count: req.session.cart.length
+      ,user: req.user
+    });
   });
 
 };

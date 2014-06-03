@@ -1,0 +1,17 @@
+.container.container-fluid.hidden-md.hidden-sm.hidden-xs
+  .row
+    .col-md-2
+        a(href='/')
+          img.logo(src='/img/logo.png')
+      .col-md-7.col-md-offset-1
+        .input-group.search-bar
+          form#search-form-lg(action="javascript:submitSearchDesktrop();" role='form')
+            - if(query && query.search) {
+              input.search.form-control(type='text', value='#{query.search}' name='search')
+            - } else {
+              input.search.form-control(type='text' value='' name='search') 
+            - }
+          span.input-group-btn
+            button.search.btn.btn-primary(type='submit' form='search-form-lg') Search
+        //
+           /input-group 

@@ -1,0 +1,102 @@
+extends ../layouts/layout_main
+block content
+
+  style.
+    .square {height: 35px; width: 35px}
+
+
+
+
+
+
+  .container.container-fluid
+
+    .row
+      div
+        | Журнал посещений
+      br
+      div
+        | Cупер предмет
+      div
+        a(href='/teacher/test')
+          | Преподаватель: Иванов Е.Б. 
+          
+      br
+      br
+      br
+
+      div
+        | Список студентоты
+      table.table.table-stripped
+        tr
+          td Имя Фамилия
+
+          - for (var i = 1; i < 21; i++) {
+            td.text-center #{i}
+          - };
+
+        - students.forEach(function(student) {
+          tr
+            td 
+              a(href='/student/test')
+                | #{student.first_name + " " + student.last_name}
+            - for (var i = 1; i < 21; i++) {
+              td.1.hidden
+                button(type='button').btn.btn-danger.square Н
+              td.2
+                button(type='button').btn.btn-default.square
+              td.3.hidden
+                button(type='button').btn.btn-primary.square •
+            - };
+        - })
+
+
+  script.
+    $('.square').click(function(e) {
+        // console.log('clicked', e);
+        var td = $(e.currentTarget).parent();
+
+        //console.log(td);
+
+        $(td).addClass('hidden');
+
+        // console.log($(td));
+        //console.log($(td).find('square'));
+        //console.log($(td).find('.btn').hasClass('btn-danger'));
+        //console.log($(td).find('.btn').hasClass('btn-default'));
+        //console.log($(td).find('.btn').hasClass('btn-primary'));
+
+        if($(td).find('.btn').hasClass('btn-danger')) {
+          console.log('has danger');
+
+          var next = $(td).next();
+          $(next).removeClass('hidden');
+
+        } else if($(td).find('.btn').hasClass('btn-default')) {
+          //console.log('has def');
+
+
+          //console.log('1', $(td));
+
+          var next = $(td).next();
+
+          //console.log('2', $(next));
+          //console.log('3', $(next).find('.btn'));
+
+
+
+          $(next).removeClass('hidden');
+
+        } else if($(td).find('.btn').hasClass('btn-primary')) {
+          console.log('has primary');
+
+          var next = $(td).prev().prev();
+          $(next).removeClass('hidden');
+        }
+
+
+        //$(td).prev().
+        //$(td).next()
+
+
+    }); 

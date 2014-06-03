@@ -1,0 +1,464 @@
+doctype html
+html(lang='en')
+head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    meta(name='description', content='')
+    meta(name='author', content='')
+    script(src='https://code.jquery.com/jquery-1.10.2.min.js')
+    script(src='js/bootstrap.min.js')
+    link(rel='shortcut icon', href='/assets/ico/favicon.ico')
+    title Bahama Joes | Form Elements
+    link(href='css/style.css', rel='stylesheet')
+    //if lt IE 9
+      script(src='../../assets/js/ie8-responsive-file-warning.js')
+    //
+       HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries 
+    //if lt IE 9
+      script(src='https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js')
+      script(src='https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js')
+  body
+    .margin-50-wrapper.container.container-fluid
+      .row
+        h3 Full
+        //
+           Panel 1 
+        #accordion.col-md-12.panel-group
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle='collapse', data-parent='#accordion', href='#collapseOne')
+                  | Inputs
+            #collapseOne.panel-collapse.collapse.in
+              .form-group.panel-body
+                .form-group.col-md-12
+                  label Full Width
+                  input.form-control(type='text', placeholder='.col-md-12')
+                .form-group.col-md-6
+                  label Half
+                  input.form-control(type='text', placeholder='.col-md-6')
+                .form-group.col-md-6
+                  label Half
+                  input.form-control(type='text', placeholder='.col-md-6')
+                .form-group.col-md-4
+                  label Third
+                  input.form-control(type='text', placeholder='.col-md-4')
+                .form-group.col-md-4
+                  label Third
+                  input.form-control(type='text', placeholder='.col-md-4')
+                .form-group.col-md-4
+                  label Third
+                  input.form-control(type='text', placeholder='.col-md-4')
+                .form-group.col-md-4
+                  label Required *
+                  input.form-control(type='text', placeholder='.col-md-4')
+                .form-group.has-error.col-md-4
+                  label.control-label(for='inputError1') Input with error
+                  input#inputError1.form-control(type='text', placeholder='.has-error')
+                .col-md-2
+                  button.btn.btn-primary(type='button') Submit
+                .col-md-2
+                  button.btn.btn-success(type='button') Cancel
+          //
+             Panel 2 
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle='collapse', data-parent='#accordion', href='#collapseTwo')
+                  | Drop downs/Radio Buttons/Checkboxes
+            #collapseTwo.panel-collapse.collapse
+              .panel-body.form-group
+                //
+                   Dropdowns 
+                .dropdown.col-md-6
+                  select.form-control
+                    option Half Width
+                    option 2
+                    option 3
+                    option 4
+                    option 5
+                .dropdown.col-md-3
+                  select.form-control
+                    option Third
+                    option 2
+                    option 3
+                    option 4
+                    option 5
+                .dropdown.col-md-3
+                  select.form-control
+                    option Third
+                    option 2
+                    option 3
+                    option 4
+                    option 5
+                //
+                   Checkboxes 
+                .col-md-6.form-group
+                  .checkbox
+                    label
+                      input(type='checkbox', value='')
+                      | Option one is this and that—be sure to include why it's great
+                  .checkbox
+                    label
+                      input(type='checkbox', value='')
+                      | Option two is this and that—be sure to include why it's great
+                  .checkbox
+                    label
+                      input(type='checkbox', value='')
+                      | Option three is this and that—be sure to include why it's great
+                //
+                   Radio Buttons 
+                .col-md-6.form-group
+                  .radio
+                    label
+                      input#optionsRadios1(type='radio', name='optionsRadios', value='option1')
+                      | Option one
+                  .radio
+                    label
+                      input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+                      | Option two
+                  .radio
+                    label
+                      input#optionsRadios3(type='radio', name='optionsRadios', value='option3')
+                      | Option three
+          //
+             Example 1 
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle='collapse', data-parent='#accordion', href='#collapseThree')
+                  | Example Form
+            #collapseThree.panel-collapse.collapse
+              .panel-body
+                form(role='form')
+                  .row
+                    .col-md-12
+                      p.help-block *Required Field
+                  .row
+                    .form-group.col-md-6
+                      label(for='exampleInputEmail1') Email address*
+                      input#exampleInputEmail1.form-control(type='email', placeholder='Enter email')
+                    .form-group.col-md-6
+                      label(for='exampleInputPassword1') Password*
+                      input#exampleInputPassword1.form-control(type='password', placeholder='Password')
+                  .row
+                    .form-group.col-md-4
+                      label(for='exampleFirstName1') First Name
+                      input#exampleFirstName1.form-control(type='email', placeholder='First Name')
+                    .form-group.col-md-4
+                      label(for='exampleMiddleName1') Middle Name
+                      input#exampleMiddleName1.form-control(type='password', placeholder='Middle Name')
+                    .form-group.col-md-4
+                      label(for='exampleLastName1') Last Name
+                      input#exampleLastName1.form-control(type='password', placeholder='Last Name')
+                  .row
+                    .form-group.col-md-12
+                      label(for='exampleInputFile') File input
+                      input#exampleInputFile(type='file')
+                      p.help-block Example block-level help text here.
+                  .row
+                    .col-md-12
+                      h4 Check this if you want
+                      .checkbox
+                        label
+                          input(type='checkbox')
+                          | Check me out
+                  button.btn.btn-primary(type='submit') Submit
+          //
+             Example 2 
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle='collapse', data-parent='#accordion', href='#collapseThreeA')
+                  | Example Form - 2
+            #collapseThreeA.panel-collapse.collapse
+              .panel-body
+                form(role='form')
+                  .row
+                    .col-md-6.form-group
+                      p Item Name
+                      .col-md-4
+                        img(src='http://placehold.it/150x150')
+                      .col-md-4.form-group
+                        .radio
+                          label
+                            input#optionsRadios1(type='radio', name='optionsRadios', value='option1')
+                            | Option one
+                        .radio
+                          label
+                            input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+                            | Option two
+                        .radio
+                          label
+                            input#optionsRadios3(type='radio', name='optionsRadios', value='option3')
+                            | Option three
+                    .col-md-4.offset-1
+                      p
+                        | Prices displaed at left are based upon the following shipping address you selected above
+                      p.address
+                        | Ross Mosteller
+                        br
+                        | Bahama Joes
+                        br
+                        | 2008 West Bay Street
+                        br
+                        | Savannah, GA 31415
+                        br
+                        | 912-233-0060
+                  .row
+                    .col-md-6.form-group
+                      p Item Name
+                      .col-md-4
+                        img(src='http://placehold.it/150x150')
+                      .col-md-4.form-group
+                        .radio
+                          label
+                            input#optionsRadios1(type='radio', name='optionsRadios', value='option1')
+                            | Option one
+                        .radio
+                          label
+                            input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+                            | Option two
+                        .radio
+                          label
+                            input#optionsRadios3(type='radio', name='optionsRadios', value='option3')
+                            | Option three
+                  .row
+                    .col-md-6.form-group
+                      p Item Name
+                      .col-md-4
+                        img(src='http://placehold.it/150x150')
+                      .col-md-4.form-group
+                        .radio
+                          label
+                            input#optionsRadios1(type='radio', name='optionsRadios', value='option1')
+                            | Option one
+                        .radio
+                          label
+                            input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+                            | Option two
+                        .radio
+                          label
+                            input#optionsRadios3(type='radio', name='optionsRadios', value='option3')
+                            | Option three
+                  .col-md-6.form-group.shippingTotal
+                    hr
+                    h3
+                      | Shipping Total
+                      span.floatRt $XX.XX
+                  .col-md-12
+                    button.btn.btn-primary(type='submit') Submit
+      //
+         Half Width 
+      .row
+        h3 Half
+        #accordion2.col-md-6.panel-group
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle='collapse', data-parent='#accordion2', href='#collapseFour')
+                  | Inputs
+            #collapseFour.form-group.panel-collapse.collapse.in
+              .panel-body
+                .form-group.col-md-12
+                  label Full Width
+                  input.form-control(type='text', placeholder='.col-md-12')
+                .form-group.col-md-6
+                  label Half
+                  input.form-control(type='text', placeholder='.col-md-6')
+                .form-group.col-md-6
+                  label Half
+                  input.form-control(type='text', placeholder='.col-md-6')
+                .form-group.col-md-6
+                  label Required *
+                  input.form-control(type='text', placeholder='.col-md-4')
+                .form-group.has-error.col-md-6
+                  label.control-label(for='inputError1') Input with error
+                  input#inputError1.form-control(type='text', placeholder='.has-error')
+                .col-md-2
+                  button.btn.btn-primary(type='button') Submit
+                .col-md-2
+                  button.btn.btn-success(type='button') Cancel
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle='collapse', data-parent='#accordion2', href='#collapseFive')
+                  | Drop downs/Radio Buttons/Checkboxes
+            #collapseFive.panel-collapse.collapse
+              .panel-body
+                .panel-body
+                  //
+                     Dropdowns 
+                  .dropdown.col-md-6
+                    select.form-control
+                      option Half Width
+                      option 2
+                      option 3
+                      option 4
+                      option 5
+                  .dropdown.col-md-3
+                    select.form-control
+                      option Third
+                      option 2
+                      option 3
+                      option 4
+                      option 5
+                  .dropdown.col-md-3
+                    select.form-control
+                      option Third
+                      option 2
+                      option 3
+                      option 4
+                      option 5
+                  //
+                     Checkboxes 
+                  .col-md-6.form-group
+                    .checkbox
+                      label
+                        input(type='checkbox', value='')
+                        | Option one is this and that—be sure to include why it's great
+                    .checkbox
+                      label
+                        input(type='checkbox', value='')
+                        | Option two is this and that—be sure to include why it's great
+                    .checkbox
+                      label
+                        input(type='checkbox', value='')
+                        | Option three is this and that—be sure to include why it's great
+                  //
+                     Radio Buttons 
+                  .col-md-6.form-group
+                    .radio
+                      label
+                        input#optionsRadios1(type='radio', name='optionsRadios', value='option1')
+                        | Option one
+                    .radio
+                      label
+                        input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+                        | Option two
+                    .radio
+                      label
+                        input#optionsRadios3(type='radio', name='optionsRadios', value='option3')
+                        | Option three
+          //
+             Example 1 
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle='collapse', data-parent='#accordion2', href='#collapseSix')
+                  | Example Form
+            #collapseSix.panel-collapse.collapse
+              .panel-body
+                .panel-body
+                  form(role='form')
+                    .row
+                      .col-md-12
+                        p.help-block *Required Field
+                    .row
+                      .form-group.col-md-6
+                        label(for='exampleInputEmail1') Email address*
+                        input#exampleInputEmail1.form-control(type='email', placeholder='Enter email')
+                      .form-group.col-md-6
+                        label(for='exampleInputPassword1') Password*
+                        input#exampleInputPassword1.form-control(type='password', placeholder='Password')
+                    .row
+                      .form-group.col-md-4
+                        label(for='exampleFirstName1') First Name
+                        input#exampleFirstName1.form-control(type='email', placeholder='First Name')
+                      .form-group.col-md-4
+                        label(for='exampleMiddleName1') Middle Name
+                        input#exampleMiddleName1.form-control(type='password', placeholder='Middle Name')
+                      .form-group.col-md-4
+                        label(for='exampleLastName1') Last Name
+                        input#exampleLastName1.form-control(type='password', placeholder='Last Name')
+                    .row
+                      .form-group.col-md-12
+                        label(for='exampleInputFile') File input
+                        input#exampleInputFile(type='file')
+                        p.help-block Example block-level help text here.
+                    .row
+                      .col-md-12
+                        h4 Check this if you want
+                        .checkbox
+                          label
+                            input(type='checkbox')
+                            | Check me out
+                    button.btn.btn-primary(type='submit') Submit
+          //
+             Example 2 
+          .panel.panel-default
+            .panel-heading
+              h4.panel-title
+                a(data-toggle='collapse', data-parent='#accordion2', href='#collapseSixA')
+                  | Example Form - 2
+            #collapseSixA.panel-collapse.collapse
+              .panel-body
+                form(role='form')
+                  .row
+                    .col-md-8.form-group
+                      p Item Name
+                      .col-md-5
+                        img(src='http://placehold.it/100x100')
+                      .col-md-7.form-group
+                        .radio
+                          label
+                            input#optionsRadios1(type='radio', name='optionsRadios', value='option1')
+                            | Option one
+                        .radio
+                          label
+                            input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+                            | Option two
+                        .radio
+                          label
+                            input#optionsRadios3(type='radio', name='optionsRadios', value='option3')
+                            | Option three
+                  .row
+                    .col-md-8.form-group
+                      p Item Name
+                      .col-md-5
+                        img(src='http://placehold.it/100x100')
+                      .col-md-7.form-group
+                        .radio
+                          label
+                            input#optionsRadios1(type='radio', name='optionsRadios', value='option1')
+                            | Option one
+                        .radio
+                          label
+                            input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+                            | Option two
+                        .radio
+                          label
+                            input#optionsRadios3(type='radio', name='optionsRadios', value='option3')
+                            | Option three
+                  .row
+                    .col-md-8.form-group
+                      p Item Name
+                      .col-md-5
+                        img(src='http://placehold.it/100x100')
+                      .col-md-7.form-group
+                        .radio
+                          label
+                            input#optionsRadios1(type='radio', name='optionsRadios', value='option1')
+                            | Option one
+                        .radio
+                          label
+                            input#optionsRadios2(type='radio', name='optionsRadios', value='option2')
+                            | Option two
+                        .radio
+                          label
+                            input#optionsRadios3(type='radio', name='optionsRadios', value='option3')
+                            | Option three
+                  .col-md-12.form-group.shippingTotal
+                    hr
+                    h3
+                      | Shipping Total
+                      span.floatRt $XX.XX
+                  .col-md-12
+                    button.btn.btn-primary(type='submit') Submit
+    //
+       Bootstrap core JavaScript
+          ================================================== 
+    //
+       Placed at the end of the document so the pages load faster 
+    

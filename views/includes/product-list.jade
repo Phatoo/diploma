@@ -1,0 +1,175 @@
+.breadcrumb-bar.hidden
+  a(href='/category/t-shirts') "T-Shirts"
+  p Related Searches:
+  a.breadcrumb.related-search(href='#') "shirt"
+  a.breadcrumb.related-search(href='#') "t shirt men"
+  a.breadcrumb.related-search(href='#') "t shirt women"
+.sort-by-bar
+  .sort-by
+    ul
+      li Sort By
+      style.
+        li.sort-option.by-price:hover {background: none}
+      li.sort-option.by-price
+        span.breadcrumb.sortByPrice
+          | Price
+          span.btn.glyphicon#sortByPrice
+          span.btn.glyphicon#sortByPrice
+
+  .clearfix
+  .results-showing.clearfix
+    p
+      | Showing&nbsp;
+      - var from = (query.page-1)*query.limit+1;
+      - var to = (query.page*query.limit > query.count ) ? query.count : query.page*query.limit;
+      - var total_pages = Math.ceil(query.count/query.limit)
+      - var pagesArray = []
+      - for( var i=1; i<= total_pages;i++)
+        - pagesArray.push( i )
+      - var before = pagesArray.slice(0,query.page-1).reverse()
+      - var after = pagesArray.slice(query.page)
+      span.pagination-interval #{from}-#{to}
+      | &nbsp;of&nbsp;
+      span.pagination-count #{query.count}
+      | &nbsp;Results
+  .results-showing.clearfix(style='text-align: center')
+    //- ul.pagination
+      li
+        a.btn.glyphicon.glyphicon-fast-backward.pagination-begin
+      -for(var i = 3; i>=0; i--)
+        
+        -if(before[i])
+          li
+            a.pagination-button.btn #{before[i]}
+        -else
+          li
+            a.disabled &nbsp;   
+      li
+        a.btn.pagination-left.glyphicon.glyphicon-chevron-left
+          //- span
+      li.active
+        a #{query.page}
+      li
+        a.btn.pagination-right.glyphicon.glyphicon-chevron-right
+          //- span
+      -for(var i = 0; i<=3;i++)
+        -if(after[i])
+          li
+            a.pagination-button.btn #{after[i]}
+        -else
+          li
+            a.disabled &nbsp;   
+      li
+        a.btn.glyphicon.glyphicon-fast-forward.pagination-end(last='#{total_pages}')
+
+.row.product-list
+  - for(var i=0; i < products.length; i++)
+    .product-result-wrap.col-lg-3.col-md-3.col-sm-4.col-xs-6
+        .product-result
+          //- .flag.closeout Closeout
+          //- .closeout-after
+          a(href='/product/#{products[i]._source.bahamajoe_sku}') 
+            p.prod-desc(href='/product/#{products[i]._source.bahamajoe_sku}') #{products[i]._source.product_name}
+            - if (color)
+              .prod-img-wrap
+                img.prod-img(src='#{sails.config.constants.imageStoreUrl}#{products[i]._source.UI.colors[color]}')
+            - else
+             - if (products[i]._source.product_image)
+              .prod-img-wrap
+                img.prod-img(src='#{sails.config.constants.imageStoreUrl}#{products[i]._source.product_image}')
+             - else
+              .prod-img-wrap
+                img.prod-img(src='http://placehold.it/200x195')
+             .swatches.hidden
+               #swatch1.swatch
+               #swatch2.swatch
+               #swatch3.swatch
+               #swatch4.swatch
+               #swatch5.swatch
+               #swatch6.swatch
+               #swatch7.swatch
+          p.prod-name #{products[i]._source.brand}
+          p.prod-num Item No. #{products[i]._source.bahamajoe_sku}
+          p.prod-price
+            strong As Low As
+            | $ #{products[i]._source.as_low_as_price}
+.results-showing.clearfix(style='text-align: center')
+  //- Pagination for desktop screen
+  ul.pager.active.hidden-xs.hidden-sm(style='border: none; background: #e0eeee')
+    li
+      a.btn.pagination-left(style='border: none; background-color: #e0eeee; color: #444;')
+        .glyphicon.glyphicon-chevron-left
+        span &nbsp;Previous
+    -for(var i = 4; i>=0; i--)
+      
+      -if(before[i])
+        li
+          a.pagination-button.btn(style='border: none; background-color: #e0eeee;color: #444;') #{before[i]} 
+      -else
+        li
+          a.disabled(style='border: none; background-color: #e0eeee;color: #444;') &nbsp;   
+    li
+      a #{query.page}
+    -for(var i = 0; i<4;i++)
+      -if(after[i])
+        -if(after.length > 4 && i == 3)
+          li
+            a.btn.pagination-right.disabled(style='border: none; background-color: #e0eeee;color: #444;') ...
+          li
+            a.btn.pagination-end(style='border: none; background-color: #e0eeee;color: #444;' last='#{total_pages}')
+              span #{total_pages}
+        -else
+          li
+            a.pagination-button.btn(style='border: none; background-color: #e0eeee;color: #444;') #{after[i]} 
+        -if(after.length == 4 && i == 1)
+          li
+            a.btn.pagination-end(style='border: none; background-color: #e0eeee;color: #444;' last='#{total_pages}')
+              span #{total_pages}
+      -else
+        li
+          a.disabled(style='border: none; background-color: #e0eeee;color: #444;') &nbsp; 
+    li
+       a.btn.pagination-right(style='border: none; background-color: #e0eeee;color: #444;')
+        span Next&nbsp;
+        .glyphicon.glyphicon-chevron-right 
+  //- pagination for mobile devices
+  ul.pager.active.hidden-md.hidden-lg(style='border: none; background: #e0eeee; margin-bottom: 0px')
+    li.col-xs-6.col-xm-6
+      a.btn.pagination-left.btn-block(style='border: none; background-color: #e0eeee; color: #444; text-align: left;')
+        .glyphicon.glyphicon-chevron-left
+        span &nbsp;Previous 
+    li.col-xs-6.col-xm-6
+      a.btn.pagination-right.text-right.btn-block(style='border: none; background-color: #e0eeee;color: #444;text-align: right;')
+        span Next &nbsp;
+        .glyphicon.glyphicon-chevron-right 
+  ul.pager.active.hidden-md.hidden-lg(style='border: none; background: #e0eeee; margin: 0px')
+    -for(var i = 2; i>=0; i--)
+      
+      -if(before[i])
+        li
+          a.pagination-button.btn(style='border: none; background-color: #e0eeee;color: #444; padding: 5px 10px;') #{before[i]} 
+      -else
+        li
+          a.disabled(style='border: none; background-color: #e0eeee;color: #444; padding: 5px 10px;') &nbsp;   
+    li
+      a #{query.page}
+    -for(var i = 0; i<2;i++)
+      -if(after[i])
+        -if(after.length > 2 && i == 1)
+          li
+            a.btn.pagination-right.disabled(style='border: none; background-color: #e0eeee;color: #444; padding: 5px 10px;') ...
+          li
+            a.btn.pagination-end(style='border: none; background-color: #e0eeee;color: #444; padding: 5px 10px;' last='#{total_pages}')
+              span #{total_pages}
+        -else
+          li
+            a.pagination-button.btn(style='border: none; background-color: #e0eeee;color: #444; padding: 5px 10px;') #{after[i]} 
+        -if(after.length == 2 && i == 1)
+          li
+            a.btn.pagination-end(style='border: none; background-color: #e0eeee;color: #444; padding: 5px 10px;' last='#{total_pages}')
+              span #{total_pages}
+      -else
+        li
+          a.disabled(style='border: none; background-color: #e0eeee;color: #444; padding: 5px 10px;') &nbsp; 
+    
+  

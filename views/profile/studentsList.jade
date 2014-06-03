@@ -1,0 +1,18 @@
+extends ../layouts/layout_main
+block content
+  .container.container-fluid
+    div
+      | Список студентов
+      table.table.table-stripped
+        tr
+          td Имя Фамилия
+          td Группа
+
+        - students.forEach(function(student) {
+          tr
+            td 
+              a(href='/student/test')
+                | #{student.first_name + " " + student.last_name}
+            td
+              | #{student.group} 
+        - })
