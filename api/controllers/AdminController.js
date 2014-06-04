@@ -15,7 +15,18 @@
  * @docs        :: http://sailsjs.org/#!documentation/controllers
  */
 
-var _from = "TeacherController: ";
+
+var fs = require('fs');
+var path = require('path');
+var _from = "AdminController: ";
+
+
+
+var Receiver = require('../services/diskReceiver');
+
+
+
+
 
 module.exports = {
 
@@ -163,12 +174,95 @@ module.exports = {
 
   ,showQrPanel: function(req, res) {
 
-    res.view('admin/qr');
+    Qr.find({}).done(function(err,qrs) {
+
+      console.log('qrs: ', qrs);
+
+      res.view('admin/qr', {
+        qrs: qrs
+      });
+    });
+
+    // res.view('admin/qr');
   }
 
+  ,createQr: function(req, res) {
+    if(req.body) {
+
+      var qrData = {
+        name: req.body.name,
+        description: req.body.description,
+        local_url: ''
+      };
+
+      //create qr instance
+      Qr.create(qrData).done(function(err, qr) {
+        if(!err){
+          if(qr){
+
+            //save image
+            req.file('image').upload( Receiver({
+              fileName: qr.id + '.png'
+            }), function onUploadComplete (err, uploadedFiles) {
+              
+              //update qr instnace with local_url
+              Qr.update({
+                id: qr.id
+              },{
+                local_url: '/qr_images/' + qr.id + '.png'
+              }, function(err, qr) {
+
+                if(err) {
+                  sails.log.error(_from + 'qr update error:', err);
+                  res.redirect('admin/qr');
+                  return;
+                }
+
+                sails.log.debug(_from + 'qr saved:', qr);
+                res.redirect('admin/qr');
+
+              });
+            });
+
+          }else{
+            res.redirect('admin/qr')
+          }
+        }else{
+          res.redirect('admin/qr')
+        }
+      })
+    }else{
+      res.redirect('admin/qr')
+    }
+  }
+
+  ,deleteQr: function(req, res) {
+
+    sails.log.debug('deleteQr');
+
+    if(req.params.id) {
+
+      
+      
+      // sails.log.info('body', req.body);
+      Qr.destroy({ id: req.params.id }).done(function(err, student) {
+        if(!err){
+          sails.log.debug('success');
+          res.redirect('admin/qr');
+        }else{
+          sails.log.debug('db error');
+          sails.log.verbose(err);
+          res.redirect('admin/qr');
+        }
+      })
+    }else{
+      sails.log.debug('req.params.id not defined');
+      res.redirect('admin/qr');
+    }
+  }
 
   /*
-   * Qr
+   * Teacher
    */
 
   ,showTeacherPanel: function(req, res) {

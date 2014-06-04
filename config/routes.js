@@ -68,7 +68,14 @@ module.exports.routes = {
     controller: 'AdminController'
     ,action: 'showQrPanel'
   }
-
+  ,'post /admin/create/qr': {
+    controller     : 'AdminController'
+    ,action        : 'createQr'
+  }
+  ,'get /admin/delete/qr/:id': {
+    controller     : 'AdminController'
+    ,action        : 'deleteQr'
+  }
 
   //student
   ,'get /admin/student': {
