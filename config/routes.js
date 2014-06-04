@@ -40,6 +40,12 @@ module.exports.routes = {
     ,action: 'showNewsPage'
   }
 
+  //qr images
+  ,'get /qr_images/:name': {
+    controller     : 'ImageController'
+    ,action          : 'getQrImage'
+  }  
+
   //admin
 
   ,'get /admin/index': {

@@ -176,8 +176,6 @@ module.exports = {
 
     Qr.find({}).done(function(err,qrs) {
 
-      console.log('qrs: ', qrs);
-
       res.view('admin/qr', {
         qrs: qrs
       });
@@ -238,17 +236,28 @@ module.exports = {
 
   ,deleteQr: function(req, res) {
 
-    sails.log.debug('deleteQr');
+    sails.log.debug('deleteQr, id:', req.params.id);
 
     if(req.params.id) {
 
-      
-      
       // sails.log.info('body', req.body);
-      Qr.destroy({ id: req.params.id }).done(function(err, student) {
+      Qr.destroy({ id: req.params.id }).done(function(err, qr) {
         if(!err){
-          sails.log.debug('success');
-          res.redirect('admin/qr');
+
+
+
+          fs.unlink('./assets/qr_images/' + req.params.id + '.png', function (err) {
+            if (err) {
+              sails.log.debug('fs error');
+              sails.log.verbose(err);
+              res.redirect('admin/qr');
+              return;
+            }
+
+            sails.log.debug('success');
+            res.redirect('admin/qr');
+          });
+
         }else{
           sails.log.debug('db error');
           sails.log.verbose(err);
