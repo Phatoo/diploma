@@ -56,7 +56,6 @@ module.exports = {
       sails.log.info('body', req.body);
 
       Student.create(req.body).done(function(err, student) {
-
         if(!err){
           if(student){
             res.redirect('admin/student')
@@ -69,7 +68,7 @@ module.exports = {
       })
     }else{
       res.redirect('admin/student')
-    } 
+    }
   }
 
   ,deleteStudent: function(req, res) {
@@ -78,18 +77,16 @@ module.exports = {
 
     if(req.params.id) {
 
-      
-      
       // sails.log.info('body', req.body);
 
       Student.destroy({ id: req.params.id }).done(function(err, student) {
         if(!err){
           sails.log.debug('success');
-          res.redirect('admin/student')
+          res.redirect('admin/student');
         }else{
           sails.log.debug('db error');
           sails.log.verbose(err);
-          res.redirect('admin/student')
+          res.redirect('admin/student');
         }
       })
     }else{
@@ -102,9 +99,6 @@ module.exports = {
 
     res.view('admin/index');
   }
-
-
-
 
   /*
    * News
@@ -138,7 +132,7 @@ module.exports = {
       })
     }else{
       res.redirect('admin/news')
-    } 
+    }
   }
 
   ,deleteNews: function(req, res) {
@@ -147,8 +141,6 @@ module.exports = {
 
     if(req.params.id) {
 
-      
-      
       // sails.log.info('body', req.body);
 
       News.destroy({ id: req.params.id }).done(function(err, student) {
@@ -175,6 +167,9 @@ module.exports = {
   ,showQrPanel: function(req, res) {
 
     Qr.find({}).done(function(err,qrs) {
+
+
+
 
       res.view('admin/qr', {
         qrs: qrs
@@ -244,19 +239,22 @@ module.exports = {
       Qr.destroy({ id: req.params.id }).done(function(err, qr) {
         if(!err){
 
+          if (fs.existsSync('./assets/qr_images/' + req.params.id + '.png')) {
+            fs.unlink('./assets/qr_images/' + req.params.id + '.png', function (err) {
+              if (err) {
+                sails.log.debug('fs error');
+                sails.log.verbose(err);
+                res.redirect('admin/qr');
+                return;
+              }
 
-
-          fs.unlink('./assets/qr_images/' + req.params.id + '.png', function (err) {
-            if (err) {
-              sails.log.debug('fs error');
-              sails.log.verbose(err);
+              sails.log.debug('success');
               res.redirect('admin/qr');
-              return;
-            }
-
+            });
+          } else {
             sails.log.debug('success');
             res.redirect('admin/qr');
-          });
+          }
 
         }else{
           sails.log.debug('db error');
