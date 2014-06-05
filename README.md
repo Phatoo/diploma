@@ -1,2 +1,2 @@
-# heroku-sails
+## heroku-sails
 ### a Sails application
