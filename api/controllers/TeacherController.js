@@ -26,33 +26,30 @@ module.exports = {
   _config: {}
     //Temporary to help show Alisa products that have issues:
 
-
-  ,getTeachersProfileView: function(req, res) {
-
-    req.params.teacher_id;
-
-    Student.findOne({ _id: req.params.student_id }).done(function(err, teacher) {
+  ,getTeachersList: function(req, res) {
+    Teacher.find({}).done(function(err, teachers) {
       if(err) {
           res.send(err, 500);
       } else {
 
-          return res.view('profile/teacher', {
-            teacher: teacher || {
-              first_name: 'Имя',
-              last_name: 'Иванов',
-              email: 'blabla@bla.bla'
-            }
-          });
+        return res.view('profile/teachersList', {
+          teachers: teachers
+        });
       }
     });
-
   }
 
+  ,getTeachersProfileView: function(req, res) {
 
-  // ,like: function(req, res) {
+    Teacher.findOne({ _id: req.params.student_id }).done(function(err, teacher) {
+      if(err) {
+          res.send(err, 500);
+      } else {
 
-  // }
-
-
-
+        return res.view('profile/teacher', {
+          teacher: teacher
+        });
+      }
+    });
+  }
 };

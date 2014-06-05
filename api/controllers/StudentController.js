@@ -36,12 +36,10 @@ module.exports = {
           students: students
         });
       }
-    });    
+    });
   }
 
   ,getStudentsProfileView: function(req, res) {
-
-    req.params.student_id;
 
     Student.findOne({ _id: req.params.student_id }).done(function(err, student) {
       if(err) {
@@ -49,15 +47,10 @@ module.exports = {
       } else {
 
         return res.view('profile/student', {
-          student: student || {
-            first_name: 'Иван',
-            last_name: 'Путин',
-            email: 'blabla@bla.bla'
-          }
+          student: student
         });
       }
     });
-
   }
 
   // ,like: function(req, res) {
