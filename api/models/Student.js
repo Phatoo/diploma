@@ -5,10 +5,8 @@
  * @description :: A short summary of how this model works and what it represents.
  * @docs		:: http://sailsjs.org/#!documentation/models
  */
-// The Customer model
-var bcrypt = require('bcrypt');
-var SALT_WORK_FACTOR = 10
-var TOKEN_TIME = 86400000
+// The Student model
+
 var mongoose = require('mongoose')
   , crypto = require('crypto')
   , ObjectId = require('mongoose').Types.ObjectId
@@ -19,9 +17,18 @@ var mongoose = require('mongoose')
 module.exports = {
 
   attributes: {
-    group: 'string'
-    ,first_name: 'string'
-    ,last_name: 'string'
+    group: {
+      type: 'string'
+      ,required: true
+    }
+    ,first_name: {
+      type: 'string'
+      ,required: true
+    }
+    ,last_name: {
+      type: 'string'
+      ,required: true
+    }
     ,email: {
       type:'email'
       ,required: true

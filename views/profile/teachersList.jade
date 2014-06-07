@@ -1,0 +1,18 @@
+extends ../layouts/layout_main
+block content
+  .container.container-fluid
+    div
+      | Список преподавателей
+      table.table.table-stripped
+        tr
+          td Имя Фамилия
+          td E-mail
+
+        - teachers.forEach(function(teacher) {
+          tr
+            td 
+              a(href='/teacher/test')
+                | #{teacher.first_name + " " + teacher.last_name}
+            td
+              | #{teacher.email} 
+        - })

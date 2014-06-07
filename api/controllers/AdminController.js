@@ -20,23 +20,14 @@ var fs = require('fs');
 var path = require('path');
 var _from = "AdminController: ";
 
-
-
 var Receiver = require('../services/diskReceiver');
-
-
-
-
 
 module.exports = {
 
   /**
    * Overrides for the settings in `config/controllers.js`
-   * (specific to ProductController)
    */
   _config: {}
-    //Temporary to help show Alisa products that have issues:
-
 
   /*
    * Student
@@ -70,7 +61,6 @@ module.exports = {
       res.redirect('admin/student')
     }
   }
-
   ,deleteStudent: function(req, res) {
 
     sails.log.debug('deleteStudent');
@@ -94,10 +84,95 @@ module.exports = {
       res.redirect('admin/student')
     }
   }
-
   ,showIndex: function(req, res) {
 
     res.view('admin/index');
+  }
+
+
+  /*
+   * Teacher
+   */
+
+  ,showTeacherPanel: function(req, res) {
+    sails.log.debug('showTeacherPanel');
+
+    Teacher.find({}).done(function(err,teachers) {
+      if(err) {
+        
+        sails.log.debug('db error');
+        sails.log.verbose(err);
+        
+        res.view('admin/teacher', {
+          teachers: []
+        });
+      } else {
+        
+        sails.log.debug('success');
+        sails.log.verbose('teachers:', teachers);
+        
+        res.view('admin/teacher', {
+          teachers: teachers
+        });  
+      }
+    });
+  }
+  ,createTeacher: function(req, res) {
+    sails.log.debug('createTeacher');
+
+    if(req.body) {
+
+      sails.log.info('body', req.body);
+
+      Teacher.create(req.body).done(function(err, teacher) {
+        if(!err){
+
+          sails.log.debug('success');
+          sails.log.verbose('teacher:', teacher);
+          
+          res.redirect('admin/teacher')
+        }else{
+          
+          sails.log.debug('db error');
+          sails.log.verbose(err);
+          
+          res.redirect('admin/teacher')
+        }
+      })
+    }else{
+      
+      sails.log.debug('error, body is not defined');
+      
+      res.redirect('admin/teacher')
+    }
+  }
+
+  ,deleteTeacher: function(req, res) {
+
+    sails.log.debug('deleteTeacher');
+
+    if(req.params.id) {
+
+      Teacher.destroy({ id: req.params.id }).done(function(err, teacher) {
+        if(!err){
+          
+          sails.log.debug('success');
+          
+          res.redirect('admin/teacher');
+        }else{
+          
+          sails.log.debug('db error');
+          sails.log.verbose(err);
+          
+          res.redirect('admin/teacher');
+        }
+      })
+    }else{
+      
+      sails.log.debug('req.params.id not defined');
+      
+      res.redirect('admin/teacher')
+    }
   }
 
   /*
@@ -211,20 +286,66 @@ module.exports = {
                   return;
                 }
 
-                sails.log.debug(_from + 'qr saved:', qr);
-                res.redirect('admin/qr');
+                fs.readFile('/qr_images/' + qr.id + '.png', 'binary', function (err,file) {
+                  if (err) {
+                    return res.redirect('admin/qr');
+                  }
 
+                  var tempFileName = file.path.substring(file.path.lastIndexOf('/')+1)
+                  var fileName = file.name.substring(0, file.name.lastIndexOf('.'))
+                  console.log('tempFileName: ', tempFileName);
+                  console.log('fileName: ', fileName);
+                  var headers = {
+                    'Content-Type' : 'image/jpg',
+                    'x-amz-acl'    : 'public-read'
+                  };
+                  console.log('does it exists?', fs.existsSync(file.path) );
+                  var uploader = client.upload(file.path, "/images/"+fileName+'_'+tempFileName, headers);
+
+                  uploader.on('error', function(err) {
+                    logger.error("unable to upload:"+ err.stack, logCat);
+                    console.log(err);
+                    res.send({
+                      success: false
+                      ,message: 'S3 image upload error'
+                      ,error: err.stack
+                    })
+                  });
+
+                  uploader.on('progress', function(amountDone, amountTotal) {
+                    logger.info("progress", amountDone, amountTotal, logCat);
+                  });
+
+                  uploader.on('end', function(url) {
+                    logger.info("file available at", url, logCat);
+                    var body = req.body
+                    body.url = url
+                    try{
+                      fs.unlinkSync(file.path)
+                      logger.info("temp image deleted: "+file.name, logCat)
+                    } catch(e) {
+                      logger.error("cant remove temp image file: "+file.name+"\n"+e, logCat)
+                    }
+                  
+                    sails.log.debug(_from + 'qr saved:', qr);
+                    res.redirect('admin/qr');
+
+                  });
+
+                });
               });
             });
-
           }else{
+            sails.log.debug('error');
             res.redirect('admin/qr')
           }
         }else{
+          sails.log.debug('error');
           res.redirect('admin/qr')
         }
       })
     }else{
+      sails.log.debug('error');
       res.redirect('admin/qr')
     }
   }
@@ -267,43 +388,4 @@ module.exports = {
       res.redirect('admin/qr');
     }
   }
-
-  /*
-   * Teacher
-   */
-
-  ,showTeacherPanel: function(req, res) {
-
-    // req.params.teacher_id;
-
-    // Student.findOne({ _id: req.params.student_id }).done(function(err, teacher) {
-    //   if(err) {
-    //       res.send(err, 500);
-    //   } else {
-
-    //       return res.view('profile/teacher', {
-    //         teacher: teacher || {
-    //           first_name: 'Имя',
-    //           last_name: 'Иванов',
-    //           email: 'blabla@bla.bla'
-    //         }
-    //       });
-    //   }
-    // });
-
-    res.view('admin/teacher', {
-
-    });
-
-  }
-
-  
-
-
-  // ,like: function(req, res) {
-
-  // }
-
-
-
 };

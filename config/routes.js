@@ -83,6 +83,12 @@ module.exports.routes = {
     ,action        : 'deleteQr'
   }
 
+  //for debugging
+  ,'get /admin/getQrImagesNames/': {
+    controller     : 'ImageController'
+    ,action        : 'getQrImagesNames'
+  }  
+
   //student
   ,'get /admin/student': {
     controller     : 'AdminController'
@@ -98,12 +104,19 @@ module.exports.routes = {
   }
 
 
-
+  //teacher
   ,'get /admin/teacher': {
     controller     : 'AdminController'
     ,action        : 'showTeacherPanel'
   }
-
+  ,'post /admin/create/teacher': {
+    controller     : 'AdminController'
+    ,action        : 'createTeacher'
+  }
+  ,'get /admin/delete/teacher/:id': {
+    controller     : 'AdminController'
+    ,action        : 'deleteTeacher'
+  }
 
 
 
@@ -175,7 +188,7 @@ module.exports.routes = {
   }
   ,'get /teacher': {
       controller    : 'TeacherController'
-      ,action        : 'list'
+      ,action        : 'getTeachersList'
     }
   ,'get /teacher/:id': {
       controller    : 'TeacherController'

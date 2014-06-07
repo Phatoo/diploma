@@ -3,6 +3,8 @@ var fs = require('fs')
 module.exports = {
 
   getQrImage: function(req, res){
+    sails.log.debug('getQrImage');
+
     req.params.name;
 
     if (fs.existsSync('./assets/qr_images/' + req.params.name)) {
@@ -13,14 +15,15 @@ module.exports = {
         res.writeHead(200, {'Content-Type': 'image/png' });
         res.end(img, 'binary');
 
+
       })
     } else {
-      res.send(404);      
+      res.send(404);
     }
 
-    
+  },
+  saveQrImage: function() {
 
 
-  
   }
 }

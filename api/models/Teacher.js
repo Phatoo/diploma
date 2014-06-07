@@ -18,20 +18,25 @@ var mongoose = require('mongoose')
 module.exports = {
 
   attributes: {
-    first_name: 'string'
-    ,last_name: 'string'
+    first_name: {
+      type: 'string'
+      ,required: true
+    }
+    ,last_name: {
+      type: 'string'
+      ,required: true
+    }
     ,email: {
       type:'email'
       ,required: true
     }
     ,password: {
       type: 'string'
-      ,required: true
+      // ,required: true
     }
     ,password_token: 'json'
     ,post: 'string'
     ,phone: 'string'
-    ,chair: 'string'
     ,description: 'string'
   }
 };
