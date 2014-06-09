@@ -103,18 +103,28 @@ module.exports = {
         sails.log.debug('db error');
         sails.log.verbose(err);
         
-        res.view('admin/teacher', {
-          teachers: []
-        });
-      } else {
+        res.render(err, 500);
+        return;
+      };
+        
+      Discipline.find({}).done(function(err, disciplines) {
+        if(err) {
+  
+          sails.log.debug('db error');
+          sails.log.verbose(err);
+  
+          res.render(err, 500);
+          return;
+        }
         
         sails.log.debug('success');
         sails.log.verbose('teachers:', teachers);
         
         res.view('admin/teacher', {
           teachers: teachers
-        });  
-      }
+          ,disciplines: disciplines
+        });
+      });
     });
   }
   ,createTeacher: function(req, res) {
@@ -122,7 +132,7 @@ module.exports = {
 
     if(req.body) {
 
-      sails.log.info('body', req.body);
+      sails.log.debug('body', req.body);
 
       Teacher.create(req.body).done(function(err, teacher) {
         if(!err){
@@ -268,69 +278,48 @@ module.exports = {
         if(!err){
           if(qr){
 
+            // sails.log.verbose('req.file', req.file('image'));
+
             //save image
             req.file('image').upload( Receiver({
               fileName: qr.id + '.png'
-            }), function onUploadComplete (err, uploadedFiles) {
-              
-              //update qr instnace with local_url
-              Qr.update({
-                id: qr.id
-              },{
-                local_url: '/qr_images/' + qr.id + '.png'
-              }, function(err, qr) {
+            }), function onUploadComplete (err, files) {
 
-                if(err) {
-                  sails.log.error(_from + 'qr update error:', err);
+                // sails.log.verbose('uploaded files:', uploadedFiles);
+
+                if(!files || !files[0] || !files[0].type) {
+                  sails.log.error(_from + 'upload files error, files:', files);
                   res.redirect('admin/qr');
                   return;
                 }
 
-                fs.readFile('/qr_images/' + qr.id + '.png', 'binary', function (err,file) {
+                fs.readFile('./assets/qr_images/' + qr.id + '.png', 'binary', function (err,file) {
                   if (err) {
+                    sails.log.error('read file, error:', err);
                     return res.redirect('admin/qr');
                   }
 
-                  var tempFileName = file.path.substring(file.path.lastIndexOf('/')+1)
-                  var fileName = file.name.substring(0, file.name.lastIndexOf('.'))
-                  console.log('tempFileName: ', tempFileName);
-                  console.log('fileName: ', fileName);
-                  var headers = {
-                    'Content-Type' : 'image/jpg',
-                    'x-amz-acl'    : 'public-read'
-                  };
-                  console.log('does it exists?', fs.existsSync(file.path) );
-                  var uploader = client.upload(file.path, "/images/"+fileName+'_'+tempFileName, headers);
+                  sails.log.verbose('file:', file);
+                  sails.log.verbose('qr:', qr);
+                  sails.log.verbose('contentType:', files[0].type);
 
-                  uploader.on('error', function(err) {
-                    logger.error("unable to upload:"+ err.stack, logCat);
-                    console.log(err);
-                    res.send({
-                      success: false
-                      ,message: 'S3 image upload error'
-                      ,error: err.stack
-                    })
-                  });
+                  //update qr instnace with local_url
+                  Qr.update({
+                    id: qr.id
+                  },{
+                    local_url: '/qr_images/' + qr.id + '.png'
+                    ,imgData: file
+                    ,imgContentType: (files && files[0]) ? files[0].type : 'undefined'
+                  }, function(err, qr) {
 
-                  uploader.on('progress', function(amountDone, amountTotal) {
-                    logger.info("progress", amountDone, amountTotal, logCat);
-                  });
-
-                  uploader.on('end', function(url) {
-                    logger.info("file available at", url, logCat);
-                    var body = req.body
-                    body.url = url
-                    try{
-                      fs.unlinkSync(file.path)
-                      logger.info("temp image deleted: "+file.name, logCat)
-                    } catch(e) {
-                      logger.error("cant remove temp image file: "+file.name+"\n"+e, logCat)
+                    if(err) {
+                      sails.log.error(_from + 'qr update error:', err);
+                      res.redirect('admin/qr');
+                      return;
                     }
-                  
-                    sails.log.debug(_from + 'qr saved:', qr);
-                    res.redirect('admin/qr');
 
-                  });
+                    sails.log.debug('success');
+                    res.redirect('admin/qr');
 
                 });
               });

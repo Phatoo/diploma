@@ -1,0 +1,29 @@
+extends ../layouts/layout_main
+block content
+  
+  .container.container-fluid
+
+    .row
+      div
+        | Успеваемость
+
+      - groups.forEach(function(group) {
+        .row
+          .col-md-4
+            | #{group.name}
+          .col-md-4
+            - group.disciplines.forEach(function(disc) {
+              a.next(href='/rating/group/' + group.name + '/discipline/' + disc.name) •#{disc.name}
+              br
+            - })
+        br
+      - })
+
+ 
+
+
+
+
+
+
+

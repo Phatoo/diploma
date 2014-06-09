@@ -10,8 +10,8 @@ block content
 
         - students.forEach(function(student) {
           tr
-            td 
-              a(href='/student/test')
+            td
+              a(href='/student/#{student.id}' )
                 | #{student.first_name + " " + student.last_name}
             td
               | #{student.group} 

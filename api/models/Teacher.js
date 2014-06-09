@@ -34,6 +34,10 @@ module.exports = {
       type: 'string'
       // ,required: true
     }
+    ,discipline: {
+      type: 'string'
+      ,required: true
+    }
     ,password_token: 'json'
     ,post: 'string'
     ,phone: 'string'

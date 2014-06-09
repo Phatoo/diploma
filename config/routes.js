@@ -132,6 +132,19 @@ module.exports.routes = {
       ,action        : 'showSchedule'
   }
 
+
+  //rating list
+  ,'get /rating': {
+      controller   : 'RatingController'
+      ,action        : 'showIndex'
+  }
+  //get schedule of group
+  ,'get /rating/group/:group/discipline/:discipline': {
+      controller   : 'RatingController'
+      ,action        : 'showRating'
+  }
+
+
   //journal
   ,'post /journal': {
       controller    : 'JournalController'
@@ -182,7 +195,7 @@ module.exports.routes = {
       controller    : 'OrderController'
       ,action        : 'create'
   }
-  ,'post /teacher/:teacher_id': {
+  ,'post /teacher/:id': {
       controller    : 'TeacherController'
       ,action        : 'getTeachersProfileView'
   }

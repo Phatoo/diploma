@@ -21,6 +21,8 @@ module.exports = {
       res.send(404);
     }
 
+    //todo, get qr id, then, get qr model, then get imgData and imgContentType, send to user
+
   },
   saveQrImage: function() {
 

@@ -8,9 +8,7 @@ module.exports = {
 
   attributes: {
     name: 'string'
-    ,description: 'string'
-    ,local_url: 'string'
-    ,imgData: Buffer
-    ,imgContentType: 'string'
+    ,teacher_id : ObjectId
+    ,group: 'string'
   }
 };

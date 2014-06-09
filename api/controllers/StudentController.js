@@ -40,16 +40,30 @@ module.exports = {
   }
 
   ,getStudentsProfileView: function(req, res) {
+    sails.log.debug('getStudentsProfileView');
 
-    Student.findOne({ _id: req.params.student_id }).done(function(err, student) {
+    Student.findOne({ id: req.params.id }).done(function(err, student) {
       if(err) {
-          res.send(err, 500);
-      } else {
+        sails.log.error('db error');
+        sails.log.verbose('err:', err);
+        res.send(err, 500);
+        return;
+      };
 
-        return res.view('profile/student', {
-          student: student
-        });
-      }
+      if(!student) {
+        sails.log.error('student not found');
+        sails.log.verbose('id:', req.params.id);
+        res.send(err, 500);
+        return;
+      };
+
+      sails.log.debug('success');
+      sails.log.verbose('student:', student);
+      return res.view('profile/student', {
+        student: student
+      });
+        
+
     });
   }
 

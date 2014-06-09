@@ -22,6 +22,15 @@ block content
                   label.col-sm-3.control-label(for='last_name') Фамилия
                   .col-sm-8
                     input#last_name.form-control(type='text', placeholder='Last Name', name='last_name' value='' required)
+                .form-group
+                  label.col-sm-3.control-label(for='discipline') Дисциплина
+                  .col-sm-8
+                    select#discipline.form-control(type='text', placeholder='Дисциплина', name='discipline' value='' required)
+                      - disciplines.forEach(function(disc) {
+                        option
+                          | #{disc.name}
+                      - })
+
                 button.btn.btn-primary(type='submit') Добавить
     div
         | Список учителей

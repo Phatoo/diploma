@@ -1,0 +1,62 @@
+extends ../layouts/layout_main
+block content
+
+  style.
+    .rating-field-width {
+      height: 28px;
+      width: 34px;
+      margin: 0 auto
+    }
+
+
+
+
+
+
+  .container.container-fluid
+
+    .row
+      div
+        | Успеваемость
+      br
+      div
+        | #{discipline.name}
+      div
+        a(href='/teacher/#{teacher.id}')
+          | Преподаватель: #{teacher.first_name + " " +teacher.last_name} 
+      br
+      br
+      br
+
+      div
+        | Список студентов
+      table.table.table-stripped
+        tr
+          td Имя Фамилия
+
+          td.text-center Модуль 1
+          td.text-center Модуль 2
+          td.text-center Итог
+
+        - students.forEach(function(student) {
+          tr
+            td
+              a(href='/student/test')
+                | #{student.first_name + " " + student.last_name}
+            td
+              input.mod1.rating-field-width
+            td
+              input.mod2.rating-field-width
+            td
+              input.total.rating-field-width
+        - })
+
+  script.
+    function calcTotal() {
+
+    }
+
+    $('.mod1').aa
+    $('.mod2').aa
+
+    }); 

@@ -41,15 +41,28 @@ module.exports = {
 
   ,getTeachersProfileView: function(req, res) {
 
-    Teacher.findOne({ _id: req.params.student_id }).done(function(err, teacher) {
-      if(err) {
-          res.send(err, 500);
-      } else {
+    Teacher.findOne({ id: req.params.id }).done(function(err, teacher) {
 
-        return res.view('profile/teacher', {
-          teacher: teacher
-        });
-      }
+      if(err) {
+        sails.log.error('db error');
+        sails.log.verbose('err:', err);
+        res.send(err, 500);
+        return;
+      };
+
+      if(!teacher) {
+        sails.log.error('teacher not found');
+        sails.log.verbose('id:', req.params.id);
+        res.send(err, 500);
+        return;
+      };
+
+      sails.log.debug('success');
+      sails.log.verbose('teacher:', teacher);
+      return res.view('profile/teacher', {
+        teacher: teacher
+      });
+
     });
   }
 };
