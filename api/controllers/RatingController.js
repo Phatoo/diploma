@@ -54,7 +54,7 @@ module.exports = {
 
       Teacher.findOne({discipline:req.params.discipline}).done(function(err, teacher) {
         if(err) {
-          sails.log.debug('student find error');
+          sails.log.debug('teacher find error');
           sails.log.verbose('err:', err);
           res.send(err, 500);
           return;

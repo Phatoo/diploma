@@ -74,8 +74,24 @@ module.exports = {
     Student.find({ group: req.params.group }).done(function(err, students) {
 
       if(err) {
-        sails.log.debug('error');
-      } else {
+        sails.log.debug('student find error');
+        sails.log.verbose('err:', err);
+        res.send(err, 500);
+        return;
+      }
+
+      Teacher.findOne({discipline:req.params.discipline}).done(function(err, teacher) {
+        if(err) {
+          sails.log.debug('teacher find error');
+          sails.log.verbose('err:', err);
+          res.send(err, 500);
+          return;
+        }
+
+        sails.log.debug('success');
+        sails.log.verbose('students: ', students);
+        sails.log.verbose('teacher:', teacher);
+
         sails.log.debug('success');
         sails.log.verbose('students: ', students);
         res.render('journal/detailed', {
@@ -85,9 +101,10 @@ module.exports = {
           ,discipline: {
             name: req.params.discipline
           }
+          ,teacher: teacher
           ,students: students
         });  
-      }
+      });
 
       
     })

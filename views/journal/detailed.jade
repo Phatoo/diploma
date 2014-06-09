@@ -18,8 +18,12 @@ block content
       div
         | #{discipline.name}
       div
-        a(href='/teacher/test')
-          | Преподаватель: Иванов Е.Б. 
+        - if(teacher) {
+          a(href='/teacher/#{teacher.id}')
+            | Преподаватель: #{teacher.first_name + " " +teacher.last_name} 
+        - } else {
+          | Преподаватель не назначен
+        - } 
           
       br
       br
