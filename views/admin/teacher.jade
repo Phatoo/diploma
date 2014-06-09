@@ -45,7 +45,7 @@ block content
         - teachers.forEach(function(teacher) {
           tr
             td 
-              a(href='/teacher/test')
+              a(href='/teacher/#{teacher.id}')
                 | #{teacher.first_name + " " + teacher.last_name}
             td
               | #{teacher.email} 
