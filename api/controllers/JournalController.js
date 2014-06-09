@@ -26,13 +26,48 @@ module.exports = {
   _config: {}
     //Temporary to help show Alisa products that have issues:
 
+  ,showIndex: function(req, res) {
+    sails.log.debug('showIndex');
+
+    var series = [];
+    var groups = [];
+    sails.config.constants.groups.forEach(function(group) {
+
+      series.push(function(callback) {
+        Discipline.find({group: group}).done(function(err, disciplines) {
+          if(err) {
+            sails.log.debug('error');
+            sails.log.verbose('err:', err);
+            res.send(err, 500);
+            return;
+          }
+
+          groups.push({
+            name: group
+            ,disciplines: disciplines
+          });
+
+          callback();
+        });
+      });
+
+      sails.log.debug('group:', group);
+
+    });
+
+    async.series(series, function(err, success) {
+      res.view('journal/index', {
+        groups: groups
+      });
+    });
+  }
 
   ,showJournal: function(req,res) {
 
     sails.log.debug('showJournal');
 
     req.params.group;
-    req.params.discipline_name;
+    req.params.discipline;
 
     sails.log.verbose('req.params.group: ', req.params.group);
 
@@ -46,8 +81,11 @@ module.exports = {
         res.render('journal/detailed', {
           journal: {
             group_id: req.params.group_id
-          },
-          students: students
+          }
+          ,discipline: {
+            name: req.params.discipline
+          }
+          ,students: students
         });  
       }
 

@@ -157,9 +157,9 @@ module.exports.routes = {
   ,'get /journal': {
       controller    : 'JournalController'
       // ,action        : 'list'
-      ,view         : 'journal/index'
+      ,action         : 'showIndex'
     }
-  ,'get /journal/:group': {
+  ,'get /journal/group/:group/discipline/:discipline': {
       controller    : 'JournalController'
       ,action        : 'showJournal'
   }

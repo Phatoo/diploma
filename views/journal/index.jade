@@ -7,9 +7,15 @@ block content
       div
         | Список групп с журналом посещений
 
-
-      - sails.config.constants.groups.forEach(function(group) {
-        a.next(href='/journal/' + group) •#{group}
+      - groups.forEach(function(group) {
+        .row
+          .col-md-4
+            | #{group.name}
+          .col-md-4
+            - group.disciplines.forEach(function(disc) {
+              a.next(href='/journal/group/' + group.name + '/discipline/' + disc.name) •#{disc.name}
+              br
+            - })
         br
       - })
 
